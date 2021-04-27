@@ -36,7 +36,7 @@ public class CommonController {
 	 * @param bindingResult
 	 * @return
 	 */
-    @ApiOperation(value = "ID, PWD로 로그인", notes = "<p>ID, PWD로 로그인<p>", response = LoginRVO.class)
+    @ApiOperation(value = "아이디, 패스워드로 로그인", notes = "<p>ID, PWD로 로그인<p>", response = LoginRVO.class)
    	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(@ModelAttribute LoginPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");

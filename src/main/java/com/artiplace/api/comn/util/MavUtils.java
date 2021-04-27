@@ -19,7 +19,7 @@ public class MavUtils {
 				.message("")
 				.build();
 		
-		mav.setStatus(HttpStatus.OK);
+		// mav.setStatus(HttpStatus.OK);
 		mav.addObject("Status", status);
 		return mav;
 	}
@@ -31,7 +31,7 @@ public class MavUtils {
 				.message(message)
 				.build();
 		
-		mav.setStatus(HttpStatus.OK);
+		// mav.setStatus(HttpStatus.OK);
 		mav.addObject("Status", status);
 		return mav;
 	}
@@ -45,7 +45,7 @@ public class MavUtils {
 				.message("")
 				.build();
 		
-		mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		// mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 		mav.addObject("Status", status);
 		return mav;
 	}
@@ -57,7 +57,7 @@ public class MavUtils {
 				.message(e.getMessage())
 				.build();
 		
-		mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		// mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 		mav.addObject("Status", status);
 		return mav;
 	}

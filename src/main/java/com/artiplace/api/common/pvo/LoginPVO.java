@@ -4,6 +4,7 @@ package com.artiplace.api.common.pvo;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,6 +17,8 @@ public class LoginPVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@ApiModelProperty(value="아이디", required = true)
 	private String id;
+	@ApiModelProperty(value="비밀번호(해시)", required = true)
 	private String hashPwd;
 }

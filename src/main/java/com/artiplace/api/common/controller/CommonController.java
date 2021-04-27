@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +38,7 @@ public class CommonController {
 	 */
     @ApiOperation(value = "ID, PWD로 로그인", notes = "<p>ID, PWD로 로그인<p>", response = LoginRVO.class)
    	@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestBody LoginPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
+    public ModelAndView login(@ModelAttribute LoginPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");
         if(bindingResult.hasErrors()){
         	System.out.println("--------------------- [login] bindingResult error start ---------------------");
@@ -56,7 +56,7 @@ public class CommonController {
 		String inputPwd = pvo.getHashPwd();
 		// String shaInputPwd = EncUtils.hashing(inputPwd, "sha256");
 		LoginRVO rvo = new LoginRVO();
-		
+		rvo.setResult("");
 		log.debug("-------------------------------------------------------");
 		log.debug("inputPwd ::: " + inputPwd);
 		log.debug("shaPwd ::: " + shaPwd);

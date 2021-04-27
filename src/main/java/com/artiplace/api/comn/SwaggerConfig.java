@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -14,6 +15,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -46,9 +48,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     public Docket api() {
         List<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>();
-//        responseMessages.add(new ResponseMessageBuilder().code(200).message("[SUCCESS] 200 OK.").build());
-//        responseMessages.add(new ResponseMessageBuilder().code(500).message("[FAIL] 500 SERVER ERROR!").responseModel(new ModelRef("Error")).build());
-//        responseMessages.add(new ResponseMessageBuilder().code(404).message("[FAIL] 404 PAGE NOT FOUND!").build());
+        responseMessages.add(new ResponseMessageBuilder().code(200).message("[SUCCESS] 200 OK.").build());
+        responseMessages.add(new ResponseMessageBuilder().code(500).message("[FAIL] 500 SERVER ERROR!").responseModel(new ModelRef("Error")).build());
+        responseMessages.add(new ResponseMessageBuilder().code(404).message("[FAIL] 404 PAGE NOT FOUND!").build());
         
         return new Docket(DocumentationType.SWAGGER_2)
         		.apiInfo(apiInfo())
@@ -56,10 +58,10 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .apis(RequestHandlerSelectors.basePackage("com.artiplace.api"))
                 .paths(postPaths())
                 .build()
-                .useDefaultResponseMessages(true) // responseMessages 설정 적용
-//                .globalResponseMessage(RequestMethod.POST,responseMessages)
+                .useDefaultResponseMessages(false) // responseMessages 설정 적용
+                .globalResponseMessage(RequestMethod.POST,responseMessages)
                 .globalOperationParameters(parameters());
-        		//.securitySchemes(Lists.newArrayList(apiKey()));
+//        		.securitySchemes(Lists.newArrayList(apiKey()));
     }
     
     private Predicate<String> postPaths() {
@@ -85,7 +87,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     	.parameterType("header")
     	.required(true)
     	.hidden(true)
-    	.defaultValue("application/json")
+    	.defaultValue("multipart/form-data")
     	.build();
     	
     	List<Parameter> parameters = new ArrayList<>();

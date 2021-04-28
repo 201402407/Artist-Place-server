@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.annotations.ApiIgnore;
 
-@Api("APP 공통 API 컨트롤러")
+@Api(value="CommonController", tags="공통 API")
 @RequestMapping("/api/common")
 @Controller
 @Slf4j

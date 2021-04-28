@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
@@ -21,6 +22,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.service.ResponseMessage;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -54,9 +56,10 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         
         return new Docket(DocumentationType.SWAGGER_2)
         		.apiInfo(apiInfo())
+        		.tags(new Tag("공통 API", "공통 API Controller"))
         		.groupName(version).select()
-                .apis(RequestHandlerSelectors.basePackage("com.artiplace.api"))
-                .paths(postPaths())
+                .apis(RequestHandlerSelectors.basePackage("com.artiplace"))
+                .paths(Predicates.or(PathSelectors.regex("/api/common/login")))
                 .build()
                 .useDefaultResponseMessages(false) // responseMessages 설정 적용
                 .globalResponseMessage(RequestMethod.POST,responseMessages)
@@ -64,11 +67,11 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 //        		.securitySchemes(Lists.newArrayList(apiKey()));
     }
     
-    private Predicate<String> postPaths() {
-    	return PathSelectors.any(); // 모든 경로를 api 문서로 만들경우
-//      return or(regex("/admin/.*"), regex("/user/.*"));  // 일부 경로를 api 문서로 만들 경우
-     // return regex("/admin/.*");
-    }
+//    private Predicate<String> postPaths() {
+//    	return PathSelectors.any(); // 모든 경로를 api 문서로 만들경우
+////      return or(regex("/admin/.*"), regex("/user/.*"));  // 일부 경로를 api 문서로 만들 경우
+//     // return regex("/admin/.*");
+//    }
  
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title(title)
@@ -87,7 +90,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     	.parameterType("header")
     	.required(true)
     	.hidden(true)
-    	.defaultValue("multipart/form-data")
+    	.defaultValue("application/json")
     	.build();
     	
     	List<Parameter> parameters = new ArrayList<>();

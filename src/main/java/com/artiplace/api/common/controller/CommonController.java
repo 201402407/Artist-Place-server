@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,7 +49,7 @@ public class CommonController {
         }
         
         log.debug("=======================================================");
-    	System.out.println(pvo.toString());
+        log.debug("pvo ::: {}", pvo.toString());
     	log.debug("=======================================================");
     	
 		String shaPwd = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"; // test sha256 결과값
@@ -59,8 +58,8 @@ public class CommonController {
 		LoginRVO rvo = new LoginRVO();
 		rvo.setResult("");
 		log.debug("=======================================================");
-		log.debug("inputPwd ::: " + inputPwd);
-		log.debug("shaPwd ::: " + shaPwd);
+		log.debug("inputPwd ::: {}", inputPwd);
+		log.debug("shaPwd ::: {}", shaPwd);
 		log.debug("=======================================================");
 		
 		if(inputPwd.equals(shaPwd)) {

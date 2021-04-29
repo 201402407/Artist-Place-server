@@ -27,11 +27,6 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
-	<servlet-mapping>
-	  <servlet-name>app</servlet-name>
-	  <url-pattern>/*</url-pattern>
-	</servlet-mapping>
   
 	<!-- Processes application requests -->
 	<servlet>
@@ -44,6 +39,10 @@
 	  <load-on-startup>1</load-on-startup>
 	</servlet>
 
+	<servlet-mapping>
+	  <servlet-name>app</servlet-name>
+	  <url-pattern>/*</url-pattern>
+	</servlet-mapping>
 	<!-- <security-constraint>
 		<web-resource-collection>
 			<web-resource-name>SSL Forward</web-resource-name>
@@ -52,9 +51,9 @@
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
-	</security-constraint>
+	</security-constraint> -->
 
 	<session-config>
 	  <session-timeout>-1</session-timeout>
-	</session-config> -->
+	</session-config>
 </web-app>

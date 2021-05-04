@@ -12,10 +12,22 @@
 	    <param-value>UTF-8</param-value>
 	  </init-param>
 	</filter>
+	<!-- CORS setting -->
+	<filter>
+		<filter-name>cors</filter-name> 
+		<filter-class>com.artiplace.api.comn.CORSFilter</filter-class> 
+	</filter>
+	
 	<filter-mapping>
 	  <filter-name>encodingFilter</filter-name>
 	  <url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<filter-mapping> 
+		<filter-name>cors</filter-name> 
+		<url-pattern>/*</url-pattern>  
+	</filter-mapping>
+
+
 	
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
@@ -43,6 +55,9 @@
 	  <servlet-name>app</servlet-name>
 	  <url-pattern>/*</url-pattern>
 	</servlet-mapping>
+
+	
+	<!-- SSL 인증 -->
 	<!-- <security-constraint>
 		<web-resource-collection>
 			<web-resource-name>SSL Forward</web-resource-name>

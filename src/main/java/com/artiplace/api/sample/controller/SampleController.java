@@ -89,7 +89,7 @@ public class SampleController {
 		String shaInputPwd = EncUtils.hashing(inputPwd, "sha256");
 		SampleRVo rvo = new SampleRVo();
 		
-		log.debug(shaInputPwd);
+		log.debug(shaInputPwd); 
 		System.out.println(shaInputPwd);
 		log.debug(shaPwd);
 		System.out.println(shaPwd);

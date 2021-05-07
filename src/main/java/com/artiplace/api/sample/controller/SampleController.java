@@ -52,6 +52,9 @@ public class SampleController {
 		// Log.debug(String.valueOf(cnt));
 		ModelAndView mav = new ModelAndView("jsonView");
 		int count = 256;
+		log.debug("=======================================================");
+		log.debug("count ::: {}", count);
+		log.debug("=======================================================");
 		mav.addObject("count", count);
 		return mav;
 	}

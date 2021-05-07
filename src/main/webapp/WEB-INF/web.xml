@@ -56,6 +56,15 @@
 	  <url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
+
+	<!-- log4j setting -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<!-- <context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>artiplace.root</param-value>
+	</context-param> -->
 	
 	<!-- SSL 인증 -->
 	<!-- <security-constraint>

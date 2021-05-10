@@ -38,8 +38,8 @@ import springfox.documentation.annotations.ApiIgnore;
 @RequestMapping("/api/common")
 public class CommonController {
 	
-//	@Autowired
-//	CommonService commonService;
+	@Autowired
+	CommonService commonService;
     
     @Autowired
     BasicDataSource dataSource;
@@ -68,8 +68,9 @@ public class CommonController {
     	log.debug("=======================================================");
     	
 		try {
-//			LoginRVO rvo = commonService.chkLogin(request, requestContext, pvo);
-			LoginRVO rvo = new LoginRVO();
+			LoginRVO rvo = commonService.chkLogin(request, requestContext, pvo);
+//			LoginRVO rvo = new LoginRVO();
+			log.debug(rvo.getResult());
 			mav.addObject(rvo);
 		} catch (Exception e) {
 			MavUtils.failModelAndView(mav, e);

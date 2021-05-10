@@ -7,10 +7,14 @@
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
                 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
+	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
+	<context:property-placeholder
+		location="classpath:config.properties" />
+		
     <context:component-scan base-package="com.artiplace.api">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
 
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
@@ -44,15 +48,24 @@
 	  <property name="maxUploadSize" value="104857600"/>
 	  <property name="defaultEncoding" value="UTF-8" />
 	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	  <!--  파일업로드 용량 (10MB)-->
+	  <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	  <property name="url" value="jdbc:mysql://${dbIpLocal}:${dbPort}/${dbName}" />
+	  <property name="username" value="${dbUsername}" />
+	  <property name="password" value="${dbPassword}" />
+	  <property name="maxWaitMillis" value="${dbMaxWaitMills}" />
+	</bean>
   
-  	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"  
+  	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"  
 	    destroy-method="close"
 	    p:driverClassName="com.mysql.jdbc.Driver"
-	    p:url="jdbc:mysql://13.124.3.122:3306/artiplace"
-	    p:username="admin"
-	    p:password="s31216"
-	    p:maxWaitMillis="4000"
-	/>
+	    p:url="jdbc:mysql://{dbIpLocal}:{dbPort}/{dbName}"
+	    p:username={dbUsername}
+	    p:password="{dbPassword}"
+	    p:maxWaitMillis="{dbMaxWaitMills}"
+	/> -->
 	<!--  파일업로드 디렉토리 설정 -->
 	<!-- <bean id="uploadPath" class="java.lang.String">
 	  <constructor-arg value="[프로젝트 내 폴더, 절대경로로 설정]"/>

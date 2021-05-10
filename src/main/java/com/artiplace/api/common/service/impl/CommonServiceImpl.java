@@ -14,8 +14,10 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public LoginRVO chkLogin(HttpServletRequest request, RequestContext requestContext, LoginPVO pvo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		LoginRVO rvo = new LoginRVO();
+		rvo.setResult("0");
+		
+		return rvo;
 	}
 
 }

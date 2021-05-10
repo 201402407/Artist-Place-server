@@ -45,6 +45,14 @@
 	  <property name="defaultEncoding" value="UTF-8" />
 	</bean>
   
+  	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"  
+	    destroy-method="close"
+	    p:driverClassName="com.mysql.jdbc.Driver"
+	    p:url="jdbc:mysql://13.124.3.122:3306/artiplace"
+	    p:username="admin"
+	    p:password="s31216"
+	    p:maxWaitMillis="4000"
+	/>
 	<!--  파일업로드 디렉토리 설정 -->
 	<!-- <bean id="uploadPath" class="java.lang.String">
 	  <constructor-arg value="[프로젝트 내 폴더, 절대경로로 설정]"/>

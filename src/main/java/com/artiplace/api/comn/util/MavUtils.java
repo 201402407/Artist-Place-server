@@ -50,6 +50,19 @@ public class MavUtils {
 		return mav;
 	}
 	
+	/* HTTP 실패 시 */
+	public static ModelAndView failModelAndView(ModelAndView mav, String errMsg) {
+		Status status = Status.builder()
+				.code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+				.codeMsg(HttpStatus.INTERNAL_SERVER_ERROR.name())
+				.message(errMsg)
+				.build();
+		
+		mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		mav.addObject("Status", status);
+		return mav;
+	}
+	
 	public static ModelAndView failModelAndView(ModelAndView mav, Exception e) {
 		Status status = Status.builder()
 				.code(HttpStatus.INTERNAL_SERVER_ERROR.value())

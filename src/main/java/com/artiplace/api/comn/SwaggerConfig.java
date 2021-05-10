@@ -93,7 +93,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     	.defaultValue("application/json")
     	.build();
     	
-    	List<Parameter> parameters = new ArrayList<>();
+    	List<Parameter> parameters = new ArrayList<Parameter>();
     	parameters.add(pb.build());
     	return parameters;
     }

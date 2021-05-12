@@ -59,7 +59,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         		.tags(new Tag("공통 API", "공통 API Controller"))
         		.groupName(version).select()
                 .apis(RequestHandlerSelectors.basePackage("com.artiplace"))
-                .paths(Predicates.or(PathSelectors.regex("/api/common/login")))
+                .paths(Predicates.or(PathSelectors.regex("/api/common")))
                 .build()
                 .useDefaultResponseMessages(false) // responseMessages 설정 적용
                 .globalResponseMessage(RequestMethod.POST,responseMessages)

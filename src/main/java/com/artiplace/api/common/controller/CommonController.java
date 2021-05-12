@@ -69,30 +69,11 @@ public class CommonController {
     	
 		try {
 			LoginRVO rvo = commonService.chkLogin(request, requestContext, pvo);
-//			LoginRVO rvo = new LoginRVO();
 			log.debug(rvo.getResult());
 			mav.addObject(rvo);
 		} catch (Exception e) {
 			MavUtils.failModelAndView(mav, e);
 		}
-    	
-//		String shaPwd = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"; // test sha256 결과값
-//		String inputPwd = pvo.getHashPwd();
-//		String shaInputPwd = EncUtils.hashing(inputPwd, "sha256");
-//		LoginRVO rvo = new LoginRVO();
-//		rvo.setResult("");
-//		log.debug("=======================================================");
-//		log.debug("inputPwd ::: {}", inputPwd);
-//		log.debug("shaPwd ::: {}", shaPwd);
-//		log.debug("=======================================================");
-		
-//		if(inputPwd.equals(shaPwd)) {
-//			MavUtils.okModelAndView(mav);
-//		}
-//		else {
-//			MavUtils.failModelAndView(mav, "pwd 불일치");
-//		}
-		
 		
 		return mav;
     	

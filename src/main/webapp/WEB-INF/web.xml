@@ -59,7 +59,7 @@
 
 	<!-- log4j setting -->
 	<listener>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+		<listener-class>org.springframework.web.util.Log4j2ConfigListener</listener-class>
 	</listener>
 	<!-- <context-param>
 		<param-name>webAppRootKey</param-name>

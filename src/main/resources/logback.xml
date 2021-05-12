@@ -38,7 +38,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- <file>C:/logs/logback/logs/access.log</file> -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-       <fileNamePattern>${webapp.root}/log/access.%d{yyyy-MM-dd}.log</fileNamePattern>
+       <fileNamePattern>/temp/log/access.%d{yyyy-MM-dd}.log</fileNamePattern>
         
             <!-- <fileNamePattern>C:/logs/logback/access.%d{yyyy-MM-dd}.log</fileNamePattern> -->
             <append>true</append>

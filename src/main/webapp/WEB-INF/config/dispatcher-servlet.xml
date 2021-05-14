@@ -10,6 +10,7 @@
                 http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
                 ">
 
+	
 	<!-- 프로퍼티 파일 삽입 (여러개면 콤마로 구분해서 한번에 넣어줄 수 있음) -->
 	<context:property-placeholder
 		location="classpath:config.properties" />

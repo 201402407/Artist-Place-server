@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.function.Consumer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +17,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,9 +59,12 @@ public class CommonController {
     	ModelAndView mav = new ModelAndView("jsonView");
         if(bindingResult.hasErrors()){
         	log.debug("==================== [login] bindingResult error start ====================");
-            bindingResult.getAllErrors().forEach(c ->{
-                System.out.println(c);
-            });
+            bindingResult.getAllErrors().forEach(new Consumer<ObjectError>() {
+				@Override
+				public void accept(ObjectError c) {
+				    System.out.println(c);
+				}
+			});
             log.debug("==================== [login] bindingResult error end ====================");
         }
         

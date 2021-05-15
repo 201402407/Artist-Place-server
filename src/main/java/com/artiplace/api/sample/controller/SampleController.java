@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,13 +78,6 @@ public class SampleController {
    	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(HttpServletRequest request, @RequestBody SamplePVo pvo, BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");
-        if(bindingResult.hasErrors()){
-        	System.out.println("--------------------- bindingResult error start ---------------------");
-            bindingResult.getAllErrors().forEach(c ->{
-                System.out.println(c);
-            });
-            System.out.println("--------------------- bindingResult error end ---------------------");
-        }
     	System.out.println(pvo.toString());
 		String shaPwd = "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"; // test sha256 결과값
 		String inputPwd = pvo.getPwd();

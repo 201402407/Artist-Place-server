@@ -3,20 +3,21 @@ package com.artiplace.api.common.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name="member")	// DB에서 해당 이름의 테이블과 매칭
+@Table(name="members")	// DB에서 해당 이름의 테이블과 매칭
 @ApiModel(value="LoginPVO", description="로그인 PVO")
 public class LoginEntity implements Serializable {
 

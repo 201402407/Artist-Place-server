@@ -5,17 +5,13 @@ import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @ApiModel(value="LoginPVO", description="로그인 PVO")
 public class LoginPVO implements Serializable {
 

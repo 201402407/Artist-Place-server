@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.RequestContext;
 
 import com.artiplace.api.common.entity.LoginEntity;
 import com.artiplace.api.common.pvo.LoginPVO;
@@ -19,9 +18,13 @@ public class CommonServiceImpl implements CommonService {
 	LoginRepository LoginRepository;
 	
 	@Override
-	public LoginRVO chkLogin(HttpServletRequest request, RequestContext requestContext, LoginPVO pvo) throws Exception {
+	public LoginRVO chkLogin(HttpServletRequest request, LoginPVO pvo) throws Exception {
 		LoginRVO rvo = new LoginRVO();
 		LoginEntity loginEntity = LoginRepository.findByEmailId(pvo.getEmailId());
+		if(loginEntity == null) {
+			rvo.setResult("0");
+		}
+		
 		
 		if(loginEntity.getPwd().equals(pvo.getPwd())) {
 			rvo.setResult("1");	// 성공

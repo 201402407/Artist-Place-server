@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.RequestContext;
 
 import com.artiplace.api.common.pvo.LoginPVO;
 import com.artiplace.api.common.rvo.LoginRVO;
@@ -55,7 +54,7 @@ public class CommonController {
 	 */
     @ApiOperation(value = "아이디, 패스워드로 로그인", notes = "<p>ID, PWD로 로그인<p>", response = LoginRVO.class)
    	@RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestBody LoginPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore RequestContext requestContext, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
+    public ModelAndView login(@RequestBody LoginPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");
         if(bindingResult.hasErrors()){
         	log.debug("==================== [login] bindingResult error start ====================");
@@ -73,14 +72,16 @@ public class CommonController {
     	log.debug("=======================================================");
     	
 		try {
-			LoginRVO rvo = commonService.chkLogin(request, requestContext, pvo);
-			log.debug(rvo.getResult());
-			mav.addObject(rvo);
+			LoginRVO rvo = commonService.chkLogin(request, pvo);
+			log.debug("=======================================================");
+	        log.debug("rvo ::: {}", rvo.toString());
+	    	log.debug("=======================================================");
+			mav.addObject("result", rvo.getResult());
 		} catch (Exception e) {
-			MavUtils.failModelAndView(mav, e);
+			return MavUtils.failModelAndView(mav, e);
 		}
 		
-		return mav;
+		return MavUtils.okModelAndView(mav);
     	
     }
     

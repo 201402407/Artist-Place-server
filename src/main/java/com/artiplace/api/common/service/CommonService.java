@@ -8,5 +8,14 @@ import com.artiplace.api.common.rvo.LoginRVO;
 import springfox.documentation.annotations.ApiIgnore;
 
 public interface CommonService {
+	
+	/*
+     * 로그인
+     */
 	public LoginRVO chkLogin(@ApiIgnore HttpServletRequest request, LoginPVO pvo) throws Exception;
+	
+    /*
+     * 로그인 로그 기록
+     */
+	public boolean addLoginLog(@ApiIgnore HttpServletRequest request, LoginPVO pvo, LoginRVO rvo);
 }

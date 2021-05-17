@@ -18,13 +18,13 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name="members")	// DB에서 해당 이름의 테이블과 매칭
-@ApiModel(value="LoginPVO", description="로그인 PVO")
+@ApiModel(value="LoginEntity", description="회원 테이블")
 public class LoginEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id	// Primary key
-	@ApiModelProperty(value="아이디", required = true)
+	@ApiModelProperty(value="이메일 ID", required = true)
 	private String emailId;
 	@ApiModelProperty(value="비밀번호(해시)", required = true)
 	private String pwd;

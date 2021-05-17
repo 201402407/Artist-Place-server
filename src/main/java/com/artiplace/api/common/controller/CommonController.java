@@ -72,17 +72,28 @@ public class CommonController {
     	log.debug("=======================================================");
     	
 		try {
+			log.debug("==================== [login] chkLogin start ====================");
 			LoginRVO rvo = commonService.chkLogin(request, pvo);
+			log.debug("==================== [login] chkLogin end ====================");
 			log.debug("=======================================================");
 	        log.debug("rvo ::: {}", rvo.toString());
 	    	log.debug("=======================================================");
 			mav.addObject("result", rvo.getResult());
+			
+			// 로그 저장
+			log.debug("==================== [login] addLoginLog start ====================");
+			if(commonService.addLoginLog(request, pvo, rvo)) {
+				log.debug("==================== [login] addLoginLog success!! ====================");
+			}
+			else {
+				log.debug("==================== [login] addLoginLog failed!! ====================");
+			}
+			log.debug("==================== [login] addLoginLog end ====================");
 		} catch (Exception e) {
 			return MavUtils.failModelAndView(mav, e);
 		}
 		
 		return MavUtils.okModelAndView(mav);
-    	
     }
     
     @RequestMapping("/dbConnTest")

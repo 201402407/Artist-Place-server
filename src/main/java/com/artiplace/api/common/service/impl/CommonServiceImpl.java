@@ -11,6 +11,9 @@ import com.artiplace.api.common.repository.LoginRepository;
 import com.artiplace.api.common.rvo.LoginRVO;
 import com.artiplace.api.common.service.CommonService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class CommonServiceImpl implements CommonService {
 
@@ -21,6 +24,7 @@ public class CommonServiceImpl implements CommonService {
 	public LoginRVO chkLogin(HttpServletRequest request, LoginPVO pvo) throws Exception {
 		LoginRVO rvo = new LoginRVO();
 		LoginEntity loginEntity = LoginRepository.findByEmailId(pvo.getEmailId());
+		
 		if(loginEntity == null) {
 			rvo.setResult("0");
 		}

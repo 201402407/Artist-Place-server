@@ -77,20 +77,19 @@
 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
     
     <bean id ="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
-    <property name="dataSource"  ref="dataSource"></property>
-    <property name="jpaVendorAdapter"  ref="jpaVendorAdapter"></property>
-      <property name="packagesToScan" value="com.artiplace.api"></property>
-	  <property name="jpaProperties">
-	   <props>
-	    <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-	    <prop key="hibernate.show_sql">true</prop>
-	    <prop key="hibernate.format_sql">true</prop>
-	    <prop key="hibernate.use_sql_comments">true</prop>
-	    <prop key="hibernate.hbm2ddl.auto">update</prop>
-	    <prop key="hibernate.physical_naming_strategy">org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl</prop>
-	    <prop key="hibernate.implicit_naming_strategy">org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl</prop>
-	   </props>
-	  </property>
+	    <property name="dataSource"  ref="dataSource"></property>
+	    <property name="jpaVendorAdapter"  ref="jpaVendorAdapter"></property>
+	    <property name="packagesToScan" value="com.artiplace.api"></property>
+		<property name="jpaProperties">
+		   <props>
+			   <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			   <prop key="hibernate.show_sql">true</prop>
+			   <prop key="hibernate.format_sql">true</prop>
+			   <prop key="hibernate.use_sql_comments">true</prop>
+			   <prop key="hibernate.hbm2ddl.auto">update</prop>
+			   <prop key="hibernate.physical_naming_strategy">com.artiplace.api.comn.util.ImprovedNamingStrategy</prop>
+		   </props>
+		</property>
   	</bean>
   	 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

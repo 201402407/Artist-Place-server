@@ -55,8 +55,8 @@ public class CommonServiceImpl implements CommonService {
 		entity.setLoginTime(new Date());
 		
 		try {
-			LoginLogEntity resultEntity = loginLogRepository.save(entity);
-			return resultEntity == null ? false : true;
+			loginLogRepository.save(entity);
+			return true;
 		}
 		catch(IllegalArgumentException e) {
 			return false;

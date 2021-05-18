@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.artiplace.api.common.entity.LoginLogEntity;
 	
 @Repository
-public interface LoginLogRepository extends JpaRepository<LoginLogEntity, BigInteger> {
+public interface LoginLogRepository extends JpaRepository<LoginLogEntity, Long> {
 }
  

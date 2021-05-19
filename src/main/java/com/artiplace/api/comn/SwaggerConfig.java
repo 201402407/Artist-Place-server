@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -39,12 +36,14 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("swagger-ui.html")
+                .addResourceHandler("/swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
 
         registry
                 .addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        
+        super.addResourceHandlers(registry);
     }
     
     @Bean
@@ -57,9 +56,10 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         return new Docket(DocumentationType.SWAGGER_2)
         		.apiInfo(apiInfo())
         		.tags(new Tag("공통 API", "공통 API Controller"))
-        		.groupName(version).select()
-                .apis(RequestHandlerSelectors.basePackage("com.artiplace"))
-                .paths(Predicates.or(PathSelectors.regex("/api/common")))
+//        		.groupName(version)
+        		.select()
+                .apis(RequestHandlerSelectors.basePackage("com.artiplace.api"))
+                .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false) // responseMessages 설정 적용
                 .globalResponseMessage(RequestMethod.POST,responseMessages)
@@ -83,6 +83,19 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .build();
     }
     
+//    private Set<String> getConsumeContentTypes() {
+//        Set<String> consumes = new HashSet<>();
+//        consumes.add("application/json;charset=UTF-8");
+//        consumes.add("application/x-www-form-urlencoded");
+//        return consumes;
+//    }
+//
+//    private Set<String> getProduceContentTypes() {
+//        Set<String> produces = new HashSet<>();
+//        produces.add("application/json;charset=UTF-8");
+//        return produces;
+//    }
+    
     private List<Parameter> parameters() {
     	ParameterBuilder pb = new ParameterBuilder();
     	pb.name("accept")
@@ -90,7 +103,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     	.parameterType("header")
     	.required(true)
     	.hidden(true)
-    	.defaultValue("application/json")
+    	.defaultValue("application/json;charset=UTF-8")
     	.build();
     	
     	List<Parameter> parameters = new ArrayList<Parameter>();

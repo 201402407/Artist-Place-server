@@ -28,4 +28,6 @@ public class LoginEntity implements Serializable {
 	private String emailId;
 	@ApiModelProperty(value="비밀번호(해시)", required = true)
 	private String pwd;
+	@ApiModelProperty(value="닉네임", required = true)
+	private String nickname;
 }

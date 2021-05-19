@@ -4,6 +4,7 @@ package com.artiplace.api.common.rvo;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,5 +17,8 @@ public class LoginRVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@ApiModelProperty(value="결과", required = true)
 	private String result;
+	@ApiModelProperty(value="닉네임", required = false)
+	private String nickname;
 }

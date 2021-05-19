@@ -1,7 +1,9 @@
 package com.artiplace.api.comn;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,6 +58,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
         return new Docket(DocumentationType.SWAGGER_2)
         		.apiInfo(apiInfo())
         		.tags(new Tag("공통 API", "공통 API Controller"))
+        		.consumes(getConsumeContentTypes()) 
+        		.produces(getProduceContentTypes())
 //        		.groupName(version)
         		.select()
                 .apis(RequestHandlerSelectors.basePackage("com.artiplace.api"))
@@ -83,18 +87,20 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .build();
     }
     
-//    private Set<String> getConsumeContentTypes() {
-//        Set<String> consumes = new HashSet<>();
-//        consumes.add("application/json;charset=UTF-8");
-//        consumes.add("application/x-www-form-urlencoded");
-//        return consumes;
-//    }
-//
-//    private Set<String> getProduceContentTypes() {
-//        Set<String> produces = new HashSet<>();
-//        produces.add("application/json;charset=UTF-8");
-//        return produces;
-//    }
+    // 수신 시 데이터 포맷
+    private Set<String> getConsumeContentTypes() {
+        Set<String> consumes = new HashSet<String>();
+        consumes.add("application/json;charset=UTF-8");
+        consumes.add("application/x-www-form-urlencoded");
+        return consumes;
+    }
+
+    // 출력 시 데이터 포맷
+    private Set<String> getProduceContentTypes() {
+        Set<String> produces = new HashSet<String>();
+        produces.add("application/json;charset=UTF-8");
+        return produces;
+    }
     
     private List<Parameter> parameters() {
     	ParameterBuilder pb = new ParameterBuilder();
@@ -103,7 +109,6 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     	.parameterType("header")
     	.required(true)
     	.hidden(true)
-    	.defaultValue("application/json;charset=UTF-8")
     	.build();
     	
     	List<Parameter> parameters = new ArrayList<Parameter>();

@@ -5,10 +5,6 @@
 
 package com.artiplace.api.common.controller;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.function.Consumer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,38 +92,38 @@ public class CommonController {
 		return MavUtils.okModelAndView(mav);
     }
     
-    @RequestMapping("/dbConnTest")
-    public ModelAndView dbTest() {
-        Connection conn = null;
-        Statement st = null;
-        
-        ModelAndView mav = new ModelAndView("jsonView");
-        
-        try {
-            conn = dataSource.getConnection();
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select now() as now;");
-            
-            while(rs.next()) {
-            	mav.addObject("now", rs.getString("now"));
-            }
-            
-        } catch (Exception e) {
-        	MavUtils.failModelAndView(mav, e);
-        } finally {
-            try {
-                if(st != null) st.close();
-            } catch (SQLException e) {
-            	MavUtils.failModelAndView(mav, e);
-            }
-            
-            try {
-                if(conn != null) conn.close();
-            } catch (SQLException e) {
-            	MavUtils.failModelAndView(mav, e);
-            }                        
-        }
-        
-        return mav;
-    }
+//    @RequestMapping("/dbConnTest")
+//    public ModelAndView dbTest() {
+//        Connection conn = null;
+//        Statement st = null;
+//        
+//        ModelAndView mav = new ModelAndView("jsonView");
+//        
+//        try {
+//            conn = dataSource.getConnection();
+//            st = conn.createStatement();
+//            ResultSet rs = st.executeQuery("select now() as now;");
+//            
+//            while(rs.next()) {
+//            	mav.addObject("now", rs.getString("now"));
+//            }
+//            
+//        } catch (Exception e) {
+//        	MavUtils.failModelAndView(mav, e);
+//        } finally {
+//            try {
+//                if(st != null) st.close();
+//            } catch (SQLException e) {
+//            	MavUtils.failModelAndView(mav, e);
+//            }
+//            
+//            try {
+//                if(conn != null) conn.close();
+//            } catch (SQLException e) {
+//            	MavUtils.failModelAndView(mav, e);
+//            }                        
+//        }
+//        
+//        return mav;
+//    }
 }

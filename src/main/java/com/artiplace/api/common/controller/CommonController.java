@@ -74,7 +74,7 @@ public class CommonController {
 			log.debug("==============================================================");
 	        log.debug("rvo ::: {}", rvo.toString());
 	    	log.debug("==============================================================");
-			mav.addObject("result", rvo.getResult());
+			mav.addObject("rvo", rvo);
 			
 			// 로그 저장
 			log.debug("==================== [login] addLoginLog start ====================");

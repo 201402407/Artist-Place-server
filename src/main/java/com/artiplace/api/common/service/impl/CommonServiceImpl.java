@@ -38,6 +38,7 @@ public class CommonServiceImpl implements CommonService {
 		
 		if(loginEntity.getPwd().equals(pvo.getPwd())) {
 			rvo.setResult("1");	// 성공
+			log.debug(loginEntity.getNickname());
 			rvo.setNickname(loginEntity.getNickname());
 		}
 		else {

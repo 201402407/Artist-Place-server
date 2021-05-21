@@ -12,15 +12,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@ApiModel(value="LoginRVO", description="로그인 RVO")
-public class LoginRVO implements Serializable {
+@ApiModel(value="RegistNicknameRVO", description="닉네임 설정(추가) RVO")
+public class RegistNicknameRVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@ApiModelProperty(value="결과", required = true)
 	private String result;
-	@ApiModelProperty(value="닉네임", required = false)
+	@ApiModelProperty(value="닉네임", required = true)
 	private String nickname;
-	@ApiModelProperty(value="이메일 ID", required = false)
-	private String emailId;
 }

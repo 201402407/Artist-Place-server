@@ -104,8 +104,11 @@ public class CommonController {
     	
 		try {
 			RegistNicknameRVO rvo = commonService.registNickname(request, pvo);
-			rvo.seA
-			mav.addObject("rvo", rvo);
+	        log.debug("==============================================================");
+	        log.debug("[{}] rvo ::: {}", methodName, rvo.toString());
+	    	log.debug("==============================================================");
+	    	
+			mav.addObject("nickname", rvo.getNickname());
 		} catch (Exception e) {
 			return MavUtils.failModelAndView(mav, e);
 		}

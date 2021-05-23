@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -23,6 +25,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
+@DynamicInsert  // 변경된 필드만 적용(세팅되지 않은 필드는 NULL로)
 @Table(name="logs_login")	// DB에서 해당 이름의 테이블과 매칭
 @ApiModel(value="LoginLogEntity", description="로그인 접속 로그 테이블")
 public class LoginLogEntity implements Serializable {

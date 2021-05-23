@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -19,7 +22,9 @@ import lombok.ToString;
 @Entity
 @Table(name="members")	// DB에서 해당 이름의 테이블과 매칭
 @ApiModel(value="LoginEntity", description="회원 테이블")
-public class LoginEntity implements Serializable {
+@DynamicUpdate  // 변경된 필드만 적용(세팅되지 않은 필드는 NULL로)
+@DynamicInsert  // 변경된 필드만 적용(세팅되지 않은 필드는 NULL로)
+public class MembersEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -3,18 +3,17 @@ package com.artiplace.api.common.service.impl;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.artiplace.api.common.entity.LoginEntity;
 import com.artiplace.api.common.entity.LoginLogEntity;
-import com.artiplace.api.common.entity.RegistNicknameEntity;
+import com.artiplace.api.common.entity.MembersEntity;
 import com.artiplace.api.common.pvo.LoginPVO;
 import com.artiplace.api.common.pvo.RegistNicknamePVO;
 import com.artiplace.api.common.repository.LoginLogRepository;
-import com.artiplace.api.common.repository.LoginRepository;
-import com.artiplace.api.common.repository.RegistNicknameRepository;
+import com.artiplace.api.common.repository.MembersRepository;
 import com.artiplace.api.common.rvo.LoginRVO;
 import com.artiplace.api.common.rvo.RegistNicknameRVO;
 import com.artiplace.api.common.service.CommonService;
@@ -26,26 +25,24 @@ import lombok.extern.slf4j.Slf4j;
 public class CommonServiceImpl implements CommonService {
 
 	@Autowired
-	LoginRepository loginRepository;
+	MembersRepository membersRepository;
 	@Autowired
 	LoginLogRepository loginLogRepository;
-	@Autowired
-	RegistNicknameRepository registNicknameRepository;
 	
 	@Override
 	public LoginRVO chkLogin(HttpServletRequest request, LoginPVO pvo) throws Exception {
 		LoginRVO rvo = new LoginRVO();
-		LoginEntity loginEntity = loginRepository.findByEmailId(pvo.getEmailId());
+		MembersEntity membersEntity = membersRepository.findByEmailId(pvo.getEmailId());
 		
-		if(loginEntity == null) {
+		if(membersEntity == null) {
 			rvo.setResult("0");
 		}
 		
 		
-		if(loginEntity.getPwd().equals(pvo.getPwd())) {
+		if(membersEntity.getPwd().equals(pvo.getPwd())) {
 			rvo.setResult("1");	// 성공
-			rvo.setNickname(loginEntity.getNickname());
-			rvo.setEmailId(loginEntity.getEmailId());
+			rvo.setNickname(membersEntity.getNickname());
+			rvo.setEmailId(membersEntity.getEmailId());
 		}
 		else {
 			rvo.setResult("0");
@@ -76,24 +73,14 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public RegistNicknameRVO registNickname(HttpServletRequest request, RegistNicknamePVO pvo) throws Exception {
 		RegistNicknameRVO rvo = new RegistNicknameRVO();
-
-		LoginEntity loginEntity = loginRepository.findByEmailId(pvo.getEmailId());
-		if(loginEntity != null) {
-			throw new Exception("DB 조회 결과 NULL 발생!");
-		}
 		
 		try {
-			RegistNicknameEntity registNicknameEntity = new RegistNicknameEntity();
-			registNicknameEntity.setEmailId(pvo.getEmailId());
-			registNicknameEntity.setNickname(pvo.getNickname());
+			MembersEntity resultEntity = updateNickname(pvo.getEmailId(), pvo.getNickname());
+			if(resultEntity == null) {
+				throw new Exception("DB 조회 결과 NULL 발생!");
+			}
 			
-			registNicknameRepository.saveAndFlush(registNicknameEntity);
-			if(registNicknameEntity.getNickname().equals("") || registNicknameEntity.getNickname() == null) {
-				
-			}
-			else {
-				rvo.setNickname(registNicknameEntity.getNickname());
-			}
+			rvo.setNickname(resultEntity.getNickname());
 		}
 		catch(IllegalArgumentException e) {
 			throw e;
@@ -103,6 +90,23 @@ public class CommonServiceImpl implements CommonService {
 		}
 		
 		return rvo;
+	}
+	
+	/**
+	 * 닉네임 변경(추가)
+	 * @param emailId
+	 * @param nickname
+	 * @return
+	 */
+	@Transactional
+	public MembersEntity updateNickname(String emailId, String nickname) {
+		MembersEntity membersEntity = membersRepository.getOneByEmailId(emailId);
+		if(membersEntity == null) {
+			return null;
+		}
+		
+		membersEntity.setNickname(nickname);
+		return membersRepository.save(membersEntity);
 	}
 
 }

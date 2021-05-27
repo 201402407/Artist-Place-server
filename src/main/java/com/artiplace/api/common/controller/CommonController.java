@@ -43,7 +43,7 @@ public class CommonController {
     
 	/**
 	 * Login
-	 * @param LoginPVO
+	 * @param CreateCrewPVO
 	 * @param HttpServletRequest
 	 * @param bindingResult
 	 * @return
@@ -52,7 +52,9 @@ public class CommonController {
    	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(@RequestBody LoginPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");
-    	ApiUtils.validReqDataBindingResult("login", bindingResult);
+    	if(!ApiUtils.validReqDataBindingResult("login", bindingResult)) {
+    		return MavUtils.failModelAndView(mav, "binding error");
+    	}
     	String methodName = ApiUtils.getMethodName();
         
         log.debug("==============================================================");

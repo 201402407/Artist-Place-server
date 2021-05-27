@@ -45,7 +45,7 @@ public class ApiUtils {
 	 * @param apiName
 	 * @param bindingResult
 	 */
-	public static void validReqDataBindingResult(String apiName, BindingResult bindingResult) {
+	public static boolean validReqDataBindingResult(String apiName, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
         	log.debug("==================== [{}] bindingResult error start ====================", apiName);
             bindingResult.getAllErrors().forEach(new Consumer<ObjectError>() {
@@ -55,7 +55,9 @@ public class ApiUtils {
 				}
 			});
             log.debug("==================== [{}] bindingResult error end ====================", apiName);
+            return false;
         }
         
+        return true;
 	}
 }

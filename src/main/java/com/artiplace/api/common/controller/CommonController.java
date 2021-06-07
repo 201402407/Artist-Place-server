@@ -52,35 +52,36 @@ public class CommonController {
    	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public ModelAndView login(@RequestBody LoginPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");
+    	String methodName = ApiUtils.getMethodName();
+    	ApiUtils.startApiLog(methodName);
+    	
     	if(!ApiUtils.validReqDataBindingResult("login", bindingResult)) {
     		return MavUtils.failModelAndView(mav, "binding error");
     	}
-    	String methodName = ApiUtils.getMethodName();
-        
         log.debug("==============================================================");
         log.debug("[{}] pvo ::: {}", methodName, pvo.toString());
     	log.debug("==============================================================");
-    	
 		try {
-			log.debug("==================== [{}] chkLogin start ====================", methodName);
 			LoginRVO rvo = commonService.chkLogin(request, pvo);
-			log.debug("==================== [{}] chkLogin end ====================", methodName);
 			log.debug("==============================================================");
 	        log.debug("[{}] rvo ::: {}", methodName, rvo.toString());
 	    	log.debug("==============================================================");
 			mav.addObject("rvo", rvo);
 			
-			// 로그 저장
-			log.debug("==================== [{}] addLoginLog start ====================", methodName);
+			// 로그인 로그 저장
+			ApiUtils.startApiLog("addLoginLog");
 			if(commonService.addLoginLog(request, pvo, rvo)) {
-				log.debug("==================== [{}] addLoginLog success!! ====================", methodName);
+				ApiUtils.successServiceLog("addLoginLog");
 			}
 			else {
-				log.debug("==================== [{}] addLoginLog failed!! ====================", methodName);
+				ApiUtils.failServiceLog("addLoginLog");
 			}
-			log.debug("==================== [{}] addLoginLog end ====================", methodName);
+			
+			ApiUtils.endApiLog("addLoginLog");
 		} catch (Exception e) {
 			return MavUtils.failModelAndView(mav, e);
+		} finally {
+			ApiUtils.endApiLog(methodName);
 		}
 		
 		return MavUtils.okModelAndView(mav);
@@ -97,8 +98,12 @@ public class CommonController {
    	@RequestMapping(value = "/registNickname", method = RequestMethod.POST)
     public ModelAndView registNickname(@RequestBody RegistNicknamePVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");
-    	ApiUtils.validReqDataBindingResult("registNickname", bindingResult);
     	String methodName = ApiUtils.getMethodName();
+    	ApiUtils.startApiLog(methodName);
+    	
+    	if(!ApiUtils.validReqDataBindingResult("registNickname", bindingResult)) {
+    		return MavUtils.failModelAndView(mav, "binding error");
+    	}
     	
         log.debug("==============================================================");
         log.debug("[{}] pvo ::: {}", methodName, pvo.toString());

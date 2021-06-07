@@ -23,6 +23,8 @@ import com.artiplace.api.common.rvo.RegistNicknameRVO;
 import com.artiplace.api.common.service.CommonService;
 import com.artiplace.api.comn.util.ApiUtils;
 import com.artiplace.api.comn.util.MavUtils;
+import com.artiplace.api.crew.pvo.CreateCrewPVO;
+import com.artiplace.api.crew.rvo.CreateCrewRVO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +38,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class CrewController {
 	
 	/**
-	 * Login
+	 * 크루 등록
 	 * @param CreateCrewPVO
 	 * @param HttpServletRequest
 	 * @param bindingResult
@@ -46,26 +48,29 @@ public class CrewController {
    	@RequestMapping(value = "/createCrew", method = RequestMethod.POST)
     public ModelAndView createCrew(@RequestBody CreateCrewPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
     	ModelAndView mav = new ModelAndView("jsonView");
+    	String methodName = ApiUtils.getMethodName();
+    	ApiUtils.startApiLog(methodName);
+    	
     	if(ApiUtils.validReqDataBindingResult("createCrew", bindingResult)) {
     		return MavUtils.failModelAndView(mav, "binding error");
     	}
-    	String methodName = ApiUtils.getMethodName();
-        
+
         log.debug("==============================================================");
         log.debug("[{}] pvo ::: {}", methodName, pvo.toString());
     	log.debug("==============================================================");
     	
 		try {
-			log.debug("==================== [{}] createCrew start ====================", methodName);
-			LoginRVO rvo = commonService.chkLogin(request, pvo);
-			log.debug("==================== [{}] createCrew end ====================", methodName);
-			log.debug("==============================================================");
-	        log.debug("[{}] rvo ::: {}", methodName, rvo.toString());
-	    	log.debug("==============================================================");
-			mav.addObject("rvo", rvo);
+//			LoginRVO rvo = commonService.chkLogin(request, pvo);
 			
+			log.debug("==============================================================");
+//	        log.debug("[{}] rvo ::: {}", methodName, rvo.toString());
+	    	log.debug("==============================================================");
+//			mav.addObject("rvo", rvo);
+	    	
 		} catch (Exception e) {
 			return MavUtils.failModelAndView(mav, e);
+		} finally {
+			ApiUtils.endApiLog(methodName);
 		}
 		
 		return MavUtils.okModelAndView(mav);

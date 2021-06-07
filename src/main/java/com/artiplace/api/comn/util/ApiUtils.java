@@ -60,4 +60,40 @@ public class ApiUtils {
         
         return true;
 	}
+	
+	/**
+	 * API 시작 시 로그 생성
+	 * @param apiName
+	 * @param bindingResult
+	 */
+	public static void startApiLog(String methodName) {
+		log.debug("==================== [START] {} API ====================", methodName);
+	}
+	
+	/**
+	 * API 종료 시 로그 생성
+	 * @param apiName
+	 * @param bindingResult
+	 */
+	public static void endApiLog(String methodName) {
+		log.debug("==================== [END] {} API ====================", methodName);
+	}
+	
+	/**
+	 * Service 로직 성공 시 로그 생성
+	 * @param apiName
+	 * @param bindingResult
+	 */
+	public static void successServiceLog(String serviceName) {
+		log.debug("==================== [SUCCESS] {} Service ====================", serviceName);
+	}
+	
+	/**
+	 * Service 로직 실패 시 로그 생성
+	 * @param apiName
+	 * @param bindingResult
+	 */
+	public static void failServiceLog(String serviceName) {
+		log.debug("==================== [FAILED] {} Service ====================", serviceName);
+	}
 }

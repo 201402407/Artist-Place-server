@@ -55,7 +55,7 @@
     <logger name="${LOG_PACKAGE_NAME}" level="debug"/>
 
   	<!-- TRACE > DEBUG > INFO > WARN > ERROR, 대소문자 구분 안함 -->
-    <root level="trace">
+    <root level="debug">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>

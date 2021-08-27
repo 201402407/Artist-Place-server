@@ -92,6 +92,100 @@ public class CommonServiceImpl implements CommonService {
 		return rvo;
 	}
 	
+	@Override
+	public boolean addQuestion(HttpServletRequest request, AddQuestionPVO pvo) throws Exception {
+		AddQuestionRVO rvo = new AddQuestionRVO();
+		TempProblemEntity entity = new TempProblemEntity();
+		entity.setState(pvo.getState());
+		entity.setProblemName(pvo.getProblemName());
+		entity.setType(pvo.getType());
+		try {
+			tempProblemRepository.save(entity);
+			return true;
+		}
+		catch(IllegalArgumentException e) {
+			return false;
+		}
+	}
+	
+
+
+	@Override
+	public GetQuestionListRVO getQuestionList(HttpServletRequest request, GetQuestionListPVO pvo) throws Exception {
+		GetQuestionListRVO rvo = new GetQuestionListRVO();
+		
+		int type = pvo.getType();
+		int state = pvo.getState();
+		if(type == -1) {
+			if(state == -1) {
+				List<TempProblemEntity> list = tempProblemRepository.findAll();
+				if(list.size() > 0) {
+					List<QuestionVO> resultList = new ArrayList<QuestionVO>();
+					for(TempProblemEntity ele : list) {
+						QuestionVO vo = new QuestionVO();
+						vo.setType(ele.getType());
+						vo.setProblemName(ele.getProblemName());
+						vo.setState(ele.getState());
+						resultList.add(vo);
+					}
+					
+					rvo.setQuestionList(resultList);
+				}
+			}
+			else {
+				List<TempProblemEntity> list = tempProblemRepository.findByState(state);
+				if(list.size() > 0) {
+					List<QuestionVO> resultList = new ArrayList<QuestionVO>();
+					for(TempProblemEntity ele : list) {
+						QuestionVO vo = new QuestionVO();
+						vo.setType(ele.getType());
+						vo.setProblemName(ele.getProblemName());
+						vo.setState(ele.getState());
+						resultList.add(vo);
+					}
+					
+					rvo.setQuestionList(resultList);
+				}
+			}
+		}
+		else {
+			if(state == -1) {
+				List<TempProblemEntity> list = tempProblemRepository.findByType(type);
+				if(list.size() > 0) {
+					List<QuestionVO> resultList = new ArrayList<QuestionVO>();
+					for(TempProblemEntity ele : list) {
+						QuestionVO vo = new QuestionVO();
+						vo.setType(ele.getType());
+						vo.setProblemName(ele.getProblemName());
+						vo.setState(ele.getState());
+						resultList.add(vo);
+					}
+					
+					rvo.setQuestionList(resultList);
+				}
+			}
+			else {
+				List<TempProblemEntity> list = tempProblemRepository.findByTypeAndState(type, state);
+				if(list.size() > 0) {
+					List<QuestionVO> resultList = new ArrayList<QuestionVO>();
+					for(TempProblemEntity ele : list) {
+						QuestionVO vo = new QuestionVO();
+						vo.setType(ele.getType());
+						vo.setProblemName(ele.getProblemName());
+						vo.setState(ele.getState());
+						resultList.add(vo);
+					}
+					
+					rvo.setQuestionList(resultList);
+				}
+			}
+
+		}
+		
+		return rvo;
+	}
+	
+	
 	/**
 	 * 닉네임 변경(추가)
 	 * @param emailId

@@ -1,6 +1,8 @@
 package com.artiplace.api.common.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
@@ -10,13 +12,19 @@ import org.springframework.stereotype.Service;
 
 import com.artiplace.api.common.entity.LoginLogEntity;
 import com.artiplace.api.common.entity.MembersEntity;
+import com.artiplace.api.common.entity.TempProblemEntity;
+import com.artiplace.api.common.pvo.AddQuestionPVO;
+import com.artiplace.api.common.pvo.GetQuestionListPVO;
 import com.artiplace.api.common.pvo.LoginPVO;
 import com.artiplace.api.common.pvo.RegistNicknamePVO;
 import com.artiplace.api.common.repository.LoginLogRepository;
 import com.artiplace.api.common.repository.MembersRepository;
+import com.artiplace.api.common.repository.TempProblemRepository;
+import com.artiplace.api.common.rvo.GetQuestionListRVO;
 import com.artiplace.api.common.rvo.LoginRVO;
 import com.artiplace.api.common.rvo.RegistNicknameRVO;
 import com.artiplace.api.common.service.CommonService;
+import com.artiplace.api.common.vo.QuestionVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +36,9 @@ public class CommonServiceImpl implements CommonService {
 	MembersRepository membersRepository;
 	@Autowired
 	LoginLogRepository loginLogRepository;
+	@Autowired
+	TempProblemRepository tempProblemRepository;
+	
 	
 	@Override
 	public LoginRVO chkLogin(HttpServletRequest request, LoginPVO pvo) throws Exception {
@@ -94,7 +105,6 @@ public class CommonServiceImpl implements CommonService {
 	
 	@Override
 	public boolean addQuestion(HttpServletRequest request, AddQuestionPVO pvo) throws Exception {
-		AddQuestionRVO rvo = new AddQuestionRVO();
 		TempProblemEntity entity = new TempProblemEntity();
 		entity.setState(pvo.getState());
 		entity.setProblemName(pvo.getProblemName());
@@ -202,5 +212,4 @@ public class CommonServiceImpl implements CommonService {
 		membersEntity.setNickname(nickname);
 		return membersRepository.save(membersEntity);
 	}
-
 }

@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.artiplace.api.common.pvo.AddQuestionPVO;
+import com.artiplace.api.common.pvo.GetQuestionListPVO;
 import com.artiplace.api.common.pvo.LoginPVO;
 import com.artiplace.api.common.pvo.RegistNicknamePVO;
+import com.artiplace.api.common.rvo.GetQuestionListRVO;
 import com.artiplace.api.common.rvo.LoginRVO;
 import com.artiplace.api.common.rvo.RegistNicknameRVO;
 import com.artiplace.api.common.service.CommonService;
@@ -116,6 +119,76 @@ public class CommonController {
 	    	log.debug("==============================================================");
 	    	
 			mav.addObject("nickname", rvo.getNickname());
+		} catch (Exception e) {
+			return MavUtils.failModelAndView(mav, e);
+		}
+		
+		return MavUtils.okModelAndView(mav);
+    }
+    
+	/**
+	 * 문제 추가ㅣ
+	 * @param request
+	 * @param pvo
+	 * @param bindingResult
+	 * @return
+	 */
+    @ApiOperation(value = "문제 추가", notes = "문제 추가")
+   	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
+    public ModelAndView addQuestion(@RequestBody AddQuestionPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
+    	ModelAndView mav = new ModelAndView("jsonView");
+    	String methodName = ApiUtils.getMethodName();
+    	ApiUtils.startApiLog(methodName);
+    	
+    	if(!ApiUtils.validReqDataBindingResult("addQuestion", bindingResult)) {
+    		return MavUtils.failModelAndView(mav, "binding error");
+    	}
+    	
+        log.debug("==============================================================");
+        log.debug("[{}] pvo ::: {}", methodName, pvo.toString());
+    	log.debug("==============================================================");
+    	
+		try {
+			boolean result = commonService.addQuestion(request, pvo);
+	        log.debug("==============================================================");
+	        log.debug("[{}] rvo ::: {}", methodName, result);
+	    	log.debug("==============================================================");
+	    	
+		} catch (Exception e) {
+			return MavUtils.failModelAndView(mav, e);
+		}
+		
+		return MavUtils.okModelAndView(mav);
+    }
+    
+	/**
+	 * 문제 추가ㅣ
+	 * @param request
+	 * @param pvo
+	 * @param bindingResult
+	 * @return
+	 */
+    @ApiOperation(value = "문제 리스트 조회", notes = "문제 리스트 조회", response = GetQuestionListRVO.class)
+   	@RequestMapping(value = "/getQuestionList", method = RequestMethod.POST)
+    public ModelAndView getQuestionList(@RequestBody GetQuestionListPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
+    	ModelAndView mav = new ModelAndView("jsonView");
+    	String methodName = ApiUtils.getMethodName();
+    	ApiUtils.startApiLog(methodName);
+    	
+    	if(!ApiUtils.validReqDataBindingResult("getQuestionList", bindingResult)) {
+    		return MavUtils.failModelAndView(mav, "binding error");
+    	}
+    	
+        log.debug("==============================================================");
+        log.debug("[{}] pvo ::: {}", methodName, pvo.toString());
+    	log.debug("==============================================================");
+    	
+		try {
+			GetQuestionListRVO rvo = commonService.getQuestionList(request, pvo);
+	        log.debug("==============================================================");
+	        log.debug("[{}] rvo ::: {}", methodName, rvo);
+	    	log.debug("==============================================================");
+	    	mav.addObject("questionList", rvo.getQuestionList());
 		} catch (Exception e) {
 			return MavUtils.failModelAndView(mav, e);
 		}

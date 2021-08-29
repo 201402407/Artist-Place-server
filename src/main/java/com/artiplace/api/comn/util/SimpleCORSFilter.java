@@ -11,13 +11,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-//@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCORSFilter implements Filter {
 
 public SimpleCORSFilter() {
@@ -25,7 +27,7 @@ public SimpleCORSFilter() {
 }
 
 @Override
-//@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 
     HttpServletRequest request = (HttpServletRequest) req;
@@ -37,11 +39,11 @@ public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
     else {
     	System.out.println(request.getHeader("Origin"));
     }
-//    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+    response.setHeader("Access-Control-Allow-Origin", "http://*");
+//    response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
     response.setHeader("Access-Control-Allow-Credentials", "true");
-    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-    response.setHeader("Access-Control-Max-Age", "3660");
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS, *");
+//    response.setHeader("Access-Control-Max-Age", "3660");
     response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");
 //    response.setHeader("Access-Control-Allow-Headers", "*");
 

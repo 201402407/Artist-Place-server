@@ -11,6 +11,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -133,6 +134,7 @@ public class CommonController {
 	 * @param bindingResult
 	 * @return
 	 */
+    @CrossOrigin
     @ApiOperation(value = "문제 추가", notes = "문제 추가")
    	@RequestMapping(value = "/addQuestion", method = RequestMethod.POST)
     public ModelAndView addQuestion(@RequestBody AddQuestionPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김
@@ -168,6 +170,7 @@ public class CommonController {
 	 * @param bindingResult
 	 * @return
 	 */
+    @CrossOrigin
     @ApiOperation(value = "문제 리스트 조회", notes = "문제 리스트 조회", response = GetQuestionListRVO.class)
    	@RequestMapping(value = "/getQuestionList", method = RequestMethod.POST)
     public ModelAndView getQuestionList(@RequestBody GetQuestionListPVO pvo, @ApiIgnore HttpServletRequest request, @ApiIgnore BindingResult bindingResult) {	// BindingResult : 데이터 바인딩 결과 담김

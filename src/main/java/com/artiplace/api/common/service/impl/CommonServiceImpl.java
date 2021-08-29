@@ -109,6 +109,7 @@ public class CommonServiceImpl implements CommonService {
 		entity.setState(pvo.getState());
 		entity.setProblemName(pvo.getProblemName());
 		entity.setType(pvo.getType());
+		entity.setAnswer(pvo.getAnswer());
 		try {
 			tempProblemRepository.save(entity);
 			return true;
@@ -136,6 +137,7 @@ public class CommonServiceImpl implements CommonService {
 						vo.setType(ele.getType());
 						vo.setProblemName(ele.getProblemName());
 						vo.setState(ele.getState());
+						vo.setAnswer(ele.getAnswer());
 						resultList.add(vo);
 					}
 					
@@ -151,6 +153,7 @@ public class CommonServiceImpl implements CommonService {
 						vo.setType(ele.getType());
 						vo.setProblemName(ele.getProblemName());
 						vo.setState(ele.getState());
+						vo.setAnswer(ele.getAnswer());
 						resultList.add(vo);
 					}
 					
@@ -168,6 +171,7 @@ public class CommonServiceImpl implements CommonService {
 						vo.setType(ele.getType());
 						vo.setProblemName(ele.getProblemName());
 						vo.setState(ele.getState());
+						vo.setAnswer(ele.getAnswer());
 						resultList.add(vo);
 					}
 					
@@ -183,6 +187,7 @@ public class CommonServiceImpl implements CommonService {
 						vo.setType(ele.getType());
 						vo.setProblemName(ele.getProblemName());
 						vo.setState(ele.getState());
+						vo.setAnswer(ele.getAnswer());
 						resultList.add(vo);
 					}
 					

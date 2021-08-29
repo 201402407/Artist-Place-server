@@ -23,4 +23,6 @@ public class AddQuestionPVO implements Serializable {
 	private String problemName;
 	@ApiModelProperty(value="문제 풀이 여부", required = true)
 	private int state;
+	@ApiModelProperty(value="정답", required = false)
+	private String answer;
 }

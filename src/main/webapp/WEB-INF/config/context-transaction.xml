@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+                http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+                http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+                ">
+
+	<tx:annotation-driven proxy-target-class="true"></tx:annotation-driven>
+
+	<!-- mybatis에서 쓰긴 했지만, JPA도 사용가능한지 확인 -->
+	<!-- 선언적 트랜잭션 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- advice tag는 advisor만 생성하지 실제로 트랜잭션 적용하기 위해선 AOP설정 필요 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 해당 정규표현식 메소드 이름들 트랜잭션 속성 설정 -->
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="select*" read-only="true"/>
+			<tx:method name="list*" read-only="true"/>
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="transactionPointcut" expression="execution(public * com.artiplace.api..service.impl.*ServiceImpl.*(..))"></aop:pointcut>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointcut"/>
+	</aop:config>
+</beans>

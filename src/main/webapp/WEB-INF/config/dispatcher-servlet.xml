@@ -15,15 +15,16 @@
 	<context:property-placeholder
 		location="classpath:config.properties" />
 
+
 	<!--  JPA Setting -->	
-	<jpa:repositories base-package="com.artiplace.api" />
+	<!-- <jpa:repositories base-package="com.artiplace.api" />-->	
     <context:component-scan base-package="com.artiplace.api">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
-
+    
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
     <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
     	<property name="alwaysUseFullPath" value="true"></property>
@@ -96,6 +97,9 @@
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>  
+    
+    <!-- 트랜잭션 AOP xml로 등록 -->
+    <import resource="context-transaction.xml"></import>
     
     <!-- transactionManager라는 이름이 아니면 명시적으로 등록해주어야한다. -->
 

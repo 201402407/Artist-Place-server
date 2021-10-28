@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+                http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                http://www.springframework.org/schema/data/mongo https://www.springframework.org/schema/data/mongo/spring-mongo-1.10.xsd
+                ">
+
+	<!-- (임시) 개발계 몽고디비 설정 -->
+	<beans profile="dev">
+		<mongo:mongo-client id="mongoClient" host="10.10.10.10" port="27017"></mongo:mongo-client>
+		<mongo:db-factory id="mongoDbFactory" dbname="dbname" mongo-ref="mongoClient"/>
+		<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.Mongotemplate">
+			<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"></constructor-arg>
+		</bean>
+	</beans>
+	
+	<!-- (임시) 운영계 몽고디비 설정 -->
+	<beans profile="stg">
+		<mongo:mongo-client id="mongoClient" host="10.10.10.10" port="27017"></mongo:mongo-client>
+		<mongo:db-factory id="mongoDbFactory" dbname="dbname" mongo-ref="mongoClient"/>
+		<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.Mongotemplate">
+			<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"></constructor-arg>
+		</bean>
+	</beans>
+</beans>

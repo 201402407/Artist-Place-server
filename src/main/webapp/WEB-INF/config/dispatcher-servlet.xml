@@ -100,6 +100,7 @@
     
     <!-- 트랜잭션 AOP xml로 등록 -->
     <import resource="context-transaction.xml"></import>
+    <import resource="context-mongo.xml"></import>
     
     <!-- transactionManager라는 이름이 아니면 명시적으로 등록해주어야한다. -->
 
